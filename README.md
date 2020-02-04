@@ -7,7 +7,7 @@ This was going to be the ebay killer selling app for iOS. After a few months of 
 ## Tech
 1. DB - MongoDB 4.0
 2. API - Express 4.15 / NodeJS 12.14.1
-3. iOS - Swift 4 
+3. iOS - Swift 3
 
 ## How to run
 This app runs on docker containers.
@@ -20,4 +20,4 @@ Configure app:
 - run: docker-compuse up api
 
 ## To Do
-1. Upgrade iOS app to Swift 4
+1. Upgrade iOS app to Swift 5
