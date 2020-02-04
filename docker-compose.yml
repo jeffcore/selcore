@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  #Database
+  mongo:
+    image: mongo:3.4
+    container_name: selcore-mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./selcore-data:/data/db
+
+  api:
+    build:
+      context: ./selcore-api
+      dockerfile: api.dockerfile
+    container_name: selcore-api
+    ports:
+      - "3003:3000"
+    volumes:
+      - ./selcore-api:/src
+      - /src/node_modules
+    
+  

@@ -19,6 +19,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //
 //});
 //assign routes to app
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "x-api-key, x-access-token, Content-Type");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
+  next();
+});
 app.use('/api', routesApi);
 
 // catch 404 and forward to error handler
