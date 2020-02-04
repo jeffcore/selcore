@@ -39,14 +39,16 @@ module.exports.userAuthenticate = function(req, res) {
                 if (isMatch) {
                     // Great, user has successfully authenticated, so we can generate
                     // and send them a token.
-                    var token = jwt.sign(user, config.secret, {
-                        expiresInMinutes: 43200 // expires in 30 days
+                    var token = jwt.sign(user.toJSON(), config.secret, {
+                        expiresIn: '30d' // expires in 30 days
                     });
 
                     response = {
                         success: true,
                         message: 'Enjoy your token!',
-                        token: token
+                        token: token,
+                        username: user.username,
+                        email: user.email
                     };
                     sendJSONResponse(res, 201, response);
                 } else {
@@ -77,12 +79,16 @@ module.exports.userCreate = function(req, res) {
         }, function(err, user) {
             if (err) {
                 console.log(err);
-                sendJSONResponse(res, 400, {message: "error creating user"});
+                if (err.code === 11000) {
+                    sendJSONResponse(res, 400, {message: "Username already exisits"});
+                } else {
+                    sendJSONResponse(res, 400, {message: "There was an error creating user."});
+                }
             } else {
                 console.log(user);
 
-                var token = jwt.sign(user, config.secret, {
-                    expiresInMinutes: 43200 // expires in 30 days
+                var token = jwt.sign(user.toJSON(), config.secret, {
+                    expiresIn: '30d' // expires in 30 days
                 });
 
                 var response = {

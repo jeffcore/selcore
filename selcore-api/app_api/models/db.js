@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var config = require('../../config'); // get our config file
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/selcore';
+var dbURI = config.dbConn;
 
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
